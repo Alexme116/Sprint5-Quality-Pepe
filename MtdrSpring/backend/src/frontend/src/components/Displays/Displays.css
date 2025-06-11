@@ -1,0 +1,19 @@
+.displays {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .displays-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .displays-main-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }

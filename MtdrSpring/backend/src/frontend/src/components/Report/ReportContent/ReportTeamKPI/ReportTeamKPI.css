@@ -1,0 +1,180 @@
+.report-team-kpi {
+    overflow-x: auto; /* Permite scroll horizontal si es necesario */
+    overflow-y: hidden; /* Evita scroll vertical innecesario */
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    padding: 20px 0 20px 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.report-team-kpi h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* Legend styles */
+.report-team-chart-legend {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos de la leyenda se envuelvan */
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+}
+
+.report-team-legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 10px;
+}
+
+.report-team-legend-color {
+    width: 20px;
+    height: 12px;
+    margin-right: 5px;
+    flex-shrink: 0;
+}
+
+.report-team-legend-label {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Chart container */
+.report-team-chart-container {
+    height: 100%;
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px 0 10px 0;
+}
+
+.report-team-y-axis {
+    z-index: 5;
+    position: sticky;
+    left: 0;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ccc;
+    background-color: white;
+}
+
+.report-team-y-axis-title {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    transform: rotate(-90deg);
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.report-team-y-axis-values {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 105%;
+    position: relative;
+    padding: 18px 5px 18px 45px;
+    background-color: white;
+}
+
+.report-team-y-label {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    height: 20px;
+    line-height: 20px;
+}
+
+.report-team-chart-grid {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    height: 300px;
+    border-bottom: 1px solid #ccc;
+    overflow: visible; /* Permite que las barras se vean */
+    width: 100%; /* Usa todo el ancho disponible */
+}
+
+.report-team-grid-lines {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 0;
+}
+
+.report-team-grid-line {
+    border-bottom: 1px solid #eee;
+    height: 1px;
+    width: 100%;
+}
+
+.report-team-bars-container {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 21.5px;
+    width: 100%; /* Use full width */
+}
+
+/* Sprint groups */
+.report-team-sprint-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.report-team-sprint-label {
+    position: absolute;
+    bottom: -25px;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap; /* Evita que los nombres de sprint se rompan */
+}
+
+/* Bar styles */
+.report-team-bar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    margin: 0; /* Eliminado el margen para maximizar espacio */
+}
+
+.report-team-bar {
+    position: relative;
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+    transition: height 0.3s ease;
+}
+
+.report-team-bar-value {
+    position: absolute;
+    top: -20px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+}

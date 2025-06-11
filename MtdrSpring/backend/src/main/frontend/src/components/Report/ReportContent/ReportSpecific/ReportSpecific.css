@@ -1,0 +1,11 @@
+.report-specific-filter-team-member-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.report-specific-select-sprint-container {
+    margin-top: 10px;
+}

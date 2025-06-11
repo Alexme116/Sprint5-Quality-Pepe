@@ -1,0 +1,134 @@
+.hours-invested-kpi {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.hours-invested-chart-container {
+    display: flex;
+    height: 300px;
+    padding-bottom: 24px;
+}
+
+.hours-invested-y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40px;
+    position: relative;
+    gap: 22.7px;
+    margin: -10px 5px 0 0;
+}
+
+.hours-invested-y-axis-title {
+    position: absolute;
+    transform: rotate(-90deg);
+    left: -20px;
+    top: 50%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.hours-invested-y-label {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    height: 20px;
+    line-height: 20px;
+}
+
+.hours-invested-chart-grid {
+    flex-grow: 1;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.hours-invested-grid-lines {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hours-invested-grid-line {
+    border-bottom: 1px solid #eee;
+    height: 1px;
+    width: 100%;
+}
+
+.hours-invested-bars-container {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+    margin-top: 21.5px;
+}
+
+.hours-invested-bar-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0 5px;
+}
+
+.hours-invested-bar {
+    width: 70%;
+    background-color: #ccb2fc;
+    border: 2px solid #b494fc;
+    transition: height 0.3s ease;
+}
+
+.hours-invested-x-label {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.hours-invested-legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.hours-invested-legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.hours-invested-legend-color {
+    width: 36px;
+    height: 16px;
+    background-color: #ccb2fc;
+    margin-right: 8px;
+    border: 2px solid #b494fc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .hours-invested-chart-container {
+        height: 200px;
+    }
+    
+    .hours-invested-y-axis {
+        width: 30px;
+    }
+    
+    .hours-invested-y-label, .hours-invested-x-label {
+        font-size: 10px;
+    }
+    
+    .hours-invested-bar {
+        width: 60%;
+    }
+}
