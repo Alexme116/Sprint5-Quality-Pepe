@@ -46,8 +46,7 @@ export default function Dashboard({ userType }) {
       taskData.estimatedTime,
       taskData.story_Points,
       taskData.moduleId,
-      taskData.actualTime,
-      taskData.responsible
+      taskData.actualTime
     ).then(
       (result) => {
         reloadOneIteam(taskData.id);
@@ -66,8 +65,7 @@ export default function Dashboard({ userType }) {
     estimatedTime,
     story_Points,
     moduleId,
-    actualTime,
-    responsible
+    actualTime
   ) {
     let data = {
       title: title,
@@ -77,7 +75,6 @@ export default function Dashboard({ userType }) {
       story_Points: story_Points,
       moduleId: moduleId,
       actualTime: actualTime,
-      responsible: responsible
     };
     return fetch(API_LIST + "/" + id, {
       method: "PUT",
@@ -117,7 +114,6 @@ export default function Dashboard({ userType }) {
                   story_Points: result.story_Points,
                   moduleId: result.moduleId,
                   actualTime: result.actualTime,
-                  responsible: result.responsible,
                 }
               : x
           );

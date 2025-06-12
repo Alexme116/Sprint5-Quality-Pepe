@@ -11,11 +11,11 @@ import Report from '../Report/Report';
 export default function Displays({ userType }) {
     return (
       <>
-        {/* <SignedOut>
+        <SignedOut>
           <Navigate to="/" replace />
-        </SignedOut> */}
+        </SignedOut>
 
-        {/* <SignedIn>
+        <SignedIn>
           <div className="displays">
             <div className='displays-main'>
               <Navbar />
@@ -31,23 +31,7 @@ export default function Displays({ userType }) {
               </div>
             </div>
           </div>
-        </SignedIn> */}
-
-        <div className="displays">
-            <div className='displays-main'>
-              <Navbar />
-              <div className="displays-main-container">
-                <LeftBar userType={userType} />
-                <Routes>
-                  <Route path="/dashboard" element={<Dashboard userType={userType} />} />
-                  {userType == "manager" &&
-                    <Route path="/report" element={<Report />} />
-                  }
-                </Routes>
-                <Outlet />
-              </div>
-            </div>
-          </div>
+        </SignedIn>
       </>
     );
 }

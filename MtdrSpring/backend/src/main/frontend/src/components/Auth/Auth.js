@@ -9,7 +9,6 @@ export default function Auth() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate('/displays/dashboard');
         if (isSignedIn && user) {
             navigate('/displays/dashboard');
         }
