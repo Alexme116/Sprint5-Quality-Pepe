@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                     // Soporte para sintaxis moderna
+    "module": "CommonJS",                   // Requerido para Node.js
+    "lib": ["DOM", "ESNext"],               // Soporte para APIs del navegador y Node
+    "moduleResolution": "node",             // Resolución de módulos estilo Node
+    "esModuleInterop": true,                // Para poder importar módulos CommonJS
+    "allowSyntheticDefaultImports": true,   // Mejora compatibilidad de imports
+    "strict": true,                         // Activar todas las comprobaciones estrictas
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "types": ["playwright", "node"]         // Incluye tipos de Playwright y Node.js
+  },
+  "include": ["**/*.ts"],                   // Incluye todos los archivos TypeScript
+  "exclude": ["node_modules"]               // Excluye dependencias
+}
