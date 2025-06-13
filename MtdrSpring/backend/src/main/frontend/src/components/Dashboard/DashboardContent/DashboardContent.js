@@ -27,18 +27,26 @@ export default function DashboardContent({
     done,
     estimatedTime,
     story_Points,
-    moduleId
+    moduleId,
+    responsible,
+    actionType
   ) {
     event.preventDefault();
-    setTaskData({
-      id,
-      title,
-      description,
-      done,
-      estimatedTime,
-      story_Points,
-      moduleId,
-    });
+    const data = {
+      id: id,
+      title: title,
+      description: description,
+      done: done,
+      estimatedTime: estimatedTime,
+      story_Points: story_Points,
+      moduleId: moduleId,
+      responsible: responsible
+    }
+    if (actionType === "Done") {
+      setTaskData(data);
+    } else if (actionType === "Undo") {
+      toggleDone(data);
+    }
   }
 
   function confirm_Real_Hours(realHours) {

@@ -1,7 +1,8 @@
 import './Auth.css';
 import { useEffect } from 'react';
-import { Routes, Route, Outlet, useNavigate } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import { SignIn, SignUp, useUser } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Auth() {
     const { isSignedIn, user } = useUser();
