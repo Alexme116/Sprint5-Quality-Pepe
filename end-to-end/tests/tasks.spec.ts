@@ -2,11 +2,14 @@ import { test, expect, chromium, Browser, Page } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 
+// This test suite is designed to test the tasks functionality of the application as a Manager.
 test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   let browser: Browser;
   let page: Page;
 
-  test.beforeAll(async () => {
+  // This test suite assumes that the application is running on http://localhost:3000
+  // The login is going to be done to test all the end-to-end tasks
+  test.beforeAll(async () => { // Here we make beforeAll the test the login
     browser = await chromium.launch();
     const context = await browser.newContext({
         recordVideo: {
@@ -26,12 +29,12 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     await page.getByRole('button', { name: 'Continue' }).click();
   });
 
-  test.afterAll(async () => {
+  test.afterAll(async () => { // Here we close the browser after all tests are done and wait for a while to ensure everything is captured in the video
     await page.waitForTimeout(2000);
     await browser.close();
   });
 
-  test.afterEach(async ({}, testInfo) => {
+  test.afterEach(async ({}, testInfo) => { // This will save the video of each test with the test title as the filename
   const videoPath = await page.video()?.path();
   if (videoPath) {
     const targetPath = path.join('videos/tasks/', `${testInfo.title.replace(/\s+/g, '_')}.webm`);
@@ -40,7 +43,8 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   }
 });
 
-  test('Login test', async () => {
+  // Test ID: tasks1
+  test('Login test', async () => { // This test is to ensure that the login works correctly
     await expect(page.getByText('| Oracle Manager')).toBeVisible();
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/login-test/login-success.png', fullPage: true });
@@ -52,7 +56,8 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     // ------------------
   });
 
-  test('Filter by sprint', async () => {
+  // Test ID: tasks2
+  test('Filter by sprint', async () => { // This test is to ensure that the filter by sprint works correctly
     const filterBySprint = page.getByTestId('filter-module-select');
     await expect(filterBySprint).toBeVisible();
     // --- screenshot ---
@@ -72,7 +77,8 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     // ------------------
   });
 
-  test('Create a new task', async () => {
+  // Test ID: tasks3
+  test('Create a new task', async () => { // This test is to ensure that a new task can be created successfully
     const titleInput = page.getByPlaceholder('Title');
     await expect(titleInput).toBeVisible();
     await titleInput.fill('Test Task Playwright');
@@ -130,7 +136,8 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     // ------------------
   });
 
-  test('Change last task created status to Done', async () => {
+  // Test ID: tasks4
+  test('Change last task created status to Done', async () => { // This test is to ensure that the last task created can be changed to Done status
     const doneButtonLastTask = page.getByRole('button', { name: 'Done' });
     await expect(doneButtonLastTask).toBeVisible();
     await doneButtonLastTask.click();
@@ -164,7 +171,8 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     // ------------------
   });
 
-  test('Change last task created status to toDo', async () => {
+  // Test ID: tasks5
+  test('Change last task created status to toDo', async () => { // This test is to ensure that the last task created can be changed back to To Do status
     const lastTaskCreatedDone = page.getByRole('row', { name: 'Test Task Playwright This is' });
     await expect(lastTaskCreatedDone).toBeVisible();
 
@@ -183,7 +191,8 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     // ------------------
   });
 
-  test('Delete the last task created', async () => {
+  // Test ID: tasks6
+  test('Delete the last task created', async () => { // This test is to ensure that the last task created can be deleted successfully
     const lastTaskCreated = page.getByRole('cell', { name: 'Test Task Playwright' });
     await expect(lastTaskCreated).toBeVisible();
 
