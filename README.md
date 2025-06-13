@@ -1,7 +1,7 @@
 # Sprint 5 Quality Pepe
 
 ### SetUp
-First you must in the front end in the route  
+First you need to go to the frontend path  
 `/MtdrSpring/backend/src/main/frontend`
 
 Then you must add the .env with the following token  
