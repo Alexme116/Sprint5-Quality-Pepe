@@ -85,49 +85,70 @@ test.describe('Creating and logging as a new user to test the auth', () => {
   });
 
   // Test ID: auth2
-  test('Login test', async () => { // This test is to ensure that the login works correctly with the new user
+  test('Login test successfully', async () => { // This test is to ensure that the login works correctly with the new user
     await page.getByRole('heading', { name: 'Sign in to MyTodoList' }).waitFor();
     await page.getByRole('textbox', { name: 'Email address' }).fill(email);
     await page.getByRole('button', { name: 'Continue' }).click();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/email-input-filled.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/email-input-filled.png', fullPage: true });
     // ------------------
 
     await page.getByRole('textbox', { name: 'Password' }).waitFor();
     await page.getByRole('textbox', { name: 'Password' }).fill(password);
     await page.getByRole('button', { name: 'Continue' }).click();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/password-input-filled.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/password-input-filled.png', fullPage: true });
     // ------------------
 
     await expect(page.getByText('| Oracle Manager')).toBeVisible();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/login-success.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/login-success.png', fullPage: true });
     // ------------------
 
     await expect(page.getByText('Dashboard', { exact: true })).toBeVisible();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/all-data-loaded.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/all-data-loaded.png', fullPage: true });
     // ------------------
 
     const profileButton = page.getByRole('button', { name: 'Open user button' });
     await expect(profileButton).toBeVisible();
     await profileButton.click();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/profile-button-clicked.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/profile-button-clicked.png', fullPage: true });
     // ------------------
     const signOutButton = page.getByRole('menuitem', { name: 'Sign out' });
     await expect(signOutButton).toBeVisible();
     await signOutButton.click();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/sign-out-button-clicked.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/sign-out-button-clicked.png', fullPage: true });
     // ------------------
 
     const signInHeading = page.getByRole('heading', { name: 'Sign in to MyTodoList' });
     await expect(signInHeading).toBeVisible();
     // --- screenshot ---
-    await page.screenshot({ path: 'screenshots/auth/login-test/logout-successfully.png', fullPage: true });
+    await page.screenshot({ path: 'screenshots/auth/login-test-successfully/logout-successfully.png', fullPage: true });
+    // ------------------
+  });
+
+  // Test ID: auth3
+  test('Login test incorrectly', async () => { // This test is to ensure that the login fails if the user tries to login with incorrect credentials
+    await page.getByRole('heading', { name: 'Sign in to MyTodoList' }).waitFor();
+    await page.getByRole('textbox', { name: 'Email address' }).fill(email);
+    await page.getByRole('button', { name: 'Continue' }).click();
+    // --- screenshot ---
+    await page.screenshot({ path: 'screenshots/auth/login-test-incorrectly/email-input-filled.png', fullPage: true });
     // ------------------
 
+    await page.getByRole('textbox', { name: 'Password' }).waitFor();
+    await page.getByRole('textbox', { name: 'Password' }).fill('IncorrectPassword');
+    await page.getByRole('button', { name: 'Continue' }).click();
+    // --- screenshot ---
+    await page.screenshot({ path: 'screenshots/auth/login-test-incorrectly/password-input-filled.png', fullPage: true });
+    // ------------------
+
+    await expect(page.getByText('Password is incorrect. Try')).toBeVisible();
+    // --- screenshot ---
+    await page.screenshot({ path: 'screenshots/auth/login-test-incorrectly/login-error.png', fullPage: true });
+    // ------------------
   });
 });
