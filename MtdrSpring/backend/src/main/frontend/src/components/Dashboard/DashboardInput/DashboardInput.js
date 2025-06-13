@@ -93,6 +93,7 @@ export default function DashboardInput({
 
       {/* Select Responsible */}
       <select
+        data-testid="responsible-select"
         className="dashboard-input-format dashboard-module-select-input"
         value={responsible}
         onChange={(e) => setResponsible(e.target.value)}
