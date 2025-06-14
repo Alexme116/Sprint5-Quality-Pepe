@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 // This test suite is designed to test the tasks functionality of the application as a Manager.
-test.describe('Creating, updating, and deleting tasks as a Manager', () => {
+test.describe('Creating, updating, and deleting tasks as a Manager', { tag: '@tasks' }, () => {
   let browser: Browser;
   let page: Page;
 
@@ -44,12 +44,21 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
 });
 
   // Test ID: tasks1
-  test('Login test', async () => { // This test is to ensure that the login works correctly
+  test('Login test', { tag: ['@smoke', '@login', '@setup'] }, async () => {
+    // Annotations for test metadata
+    test.info().annotations.push(
+      { type: 'test-id', description: 'tasks1' },
+      { type: 'feature', description: 'Task Management - Authentication' },
+      { type: 'severity', description: 'critical' },
+      { type: 'owner', description: 'Team 24' }
+    );
+
+    // This test is to ensure that the login works correctly
     await expect(page.getByText('| Oracle Manager')).toBeVisible();
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/login-test/login-success.png', fullPage: true });
     // ------------------
-
+    await page.waitForLoadState('networkidle');
     await expect(page.getByText('Dashboard', { exact: true })).toBeVisible();
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/login-test/all-data-loaded.png', fullPage: true });
@@ -57,7 +66,18 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   });
 
   // Test ID: tasks2
-  test('Filter by sprint', async () => { // This test is to ensure that the filter by sprint works correctly
+  test('Filter by sprint', { tag: ['@filter', '@functionality', '@medium'] }, async () => {
+    // Annotations for test metadata
+    test.info().annotations.push(
+      { type: 'test-id', description: 'tasks2' },
+      { type: 'feature', description: 'Task Management - Sprint Filtering' },
+      { type: 'severity', description: 'medium' },
+      { type: 'owner', description: 'Team 24' },
+      { type: 'test-type', description: 'functional-testing' }
+    );
+
+    // This test is to ensure that the filter by sprint works correctly
+    await page.waitForLoadState('networkidle');
     const filterBySprint = page.getByTestId('filter-module-select');
     await expect(filterBySprint).toBeVisible();
     // --- screenshot ---
@@ -78,19 +98,31 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   });
 
   // Test ID: tasks3
-  test('Create a new task', async () => { // This test is to ensure that a new task can be created successfully
+  test('Create a new task', { tag: ['@crud', '@create', '@critical', '@e2e'] }, async () => {
+    // Annotations for test metadata
+    test.info().annotations.push(
+      { type: 'test-id', description: 'tasks3' },
+      { type: 'feature', description: 'Task Management - Task Creation' },
+      { type: 'severity', description: 'critical' },
+      { type: 'owner', description: 'Team 24' },
+      { type: 'test-type', description: 'crud-operation' }
+    );
+
+    // This test is to ensure that a new task can be created successfully
+    await page.waitForLoadState('networkidle');
     const titleInput = page.getByPlaceholder('Title');
+    await page.waitForLoadState('networkidle');
     await expect(titleInput).toBeVisible();
-    await titleInput.fill('Test Task Playwright');
-    await expect(titleInput).toHaveValue('Test Task Playwright');
+    await titleInput.fill('Test Task Playwright New');
+    await expect(titleInput).toHaveValue('Test Task Playwright New');
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/create-new-task/title-input-filled.png', fullPage: true });
     // ------------------
 
     const descriptionInput = page.getByPlaceholder('Description');
     await expect(descriptionInput).toBeVisible();
-    await descriptionInput.fill('This is a test task description for Playwright.');
-    await expect(descriptionInput).toHaveValue('This is a test task description for Playwright.');
+    await descriptionInput.fill('This is a test task description for Playwright. New');
+    await expect(descriptionInput).toHaveValue('This is a test task description for Playwright. New');
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/create-new-task/description-input-filled.png', fullPage: true });
     // ------------------
@@ -129,7 +161,7 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     await expect(addButton).toBeVisible();
     await addButton.click();
 
-    const newTaskTitle = page.getByText('Test Task Playwright');
+    const newTaskTitle = page.getByText('Test Task Playwright New');
     await expect(newTaskTitle).toBeVisible();
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/create-new-task/task-added-successfully.png', fullPage: true });
@@ -137,7 +169,18 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   });
 
   // Test ID: tasks4
-  test('Change last task created status to Done', async () => { // This test is to ensure that the last task created can be changed to Done status
+  test('Change last task created status to Done', { tag: ['@crud', '@update', '@status', '@high'] }, async () => {
+    // Annotations for test metadata
+    test.info().annotations.push(
+      { type: 'test-id', description: 'tasks4' },
+      { type: 'feature', description: 'Task Management - Status Update to Done' },
+      { type: 'severity', description: 'high' },
+      { type: 'owner', description: 'Team 24' },
+      { type: 'test-type', description: 'status-transition' }
+    );
+
+    // This test is to ensure that the last task created can be changed to Done status
+    await page.waitForLoadState('networkidle');
     const doneButtonLastTask = page.getByRole('button', { name: 'Done' });
     await expect(doneButtonLastTask).toBeVisible();
     await doneButtonLastTask.click();
@@ -163,7 +206,7 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
     await expect(saveButton).toBeVisible();
     await saveButton.click();
 
-    const lastTaskCreated = page.getByRole('row', { name: 'Test Task Playwright This is' });
+    const lastTaskCreated = page.getByRole('row', { name: 'Test Task Playwright New This is' });
     await page.waitForTimeout(5000);
     await expect(lastTaskCreated).toBeVisible();
     // --- screenshot ---
@@ -172,18 +215,29 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   });
 
   // Test ID: tasks5
-  test('Change last task created status to toDo', async () => { // This test is to ensure that the last task created can be changed back to To Do status
-    const lastTaskCreatedDone = page.getByRole('row', { name: 'Test Task Playwright This is' });
+  test('Change last task created status to toDo', { tag: ['@crud', '@update', '@status', '@undo'] }, async () => {
+    // Annotations for test metadata
+    test.info().annotations.push(
+      { type: 'test-id', description: 'tasks5' },
+      { type: 'feature', description: 'Task Management - Status Revert to ToDo' },
+      { type: 'severity', description: 'medium' },
+      { type: 'owner', description: 'Team 24' },
+      { type: 'test-type', description: 'status-reversion' }
+    );
+
+    // This test is to ensure that the last task created can be changed back to To Do status
+    await page.waitForLoadState('networkidle');
+    const lastTaskCreatedDone = page.getByRole('row', { name: 'Test Task Playwright New This is' });
     await expect(lastTaskCreatedDone).toBeVisible();
 
-    const undoButtonlastTask = page.getByRole('row', { name: 'Test Task Playwright This is' }).getByRole('button').first();
+    const undoButtonlastTask = page.getByRole('row', { name: 'Test Task Playwright New This is' }).getByRole('button').first();
     await expect(undoButtonlastTask).toBeVisible();
     await undoButtonlastTask.click();
     // --- screenshot ---
     await page.screenshot({ path: 'screenshots/tasks/change-task-status-to-todo/undo-button-clicked.png', fullPage: true });
     // ------------------
     
-    const lastTaskCreatedToDo = page.getByRole('cell', { name: 'Test Task Playwright' });
+    const lastTaskCreatedToDo = page.getByRole('cell', { name: 'Test Task Playwright New' });
     await page.waitForTimeout(5000);
     await expect(lastTaskCreatedToDo).toBeVisible();
     // --- screenshot ---
@@ -192,8 +246,19 @@ test.describe('Creating, updating, and deleting tasks as a Manager', () => {
   });
 
   // Test ID: tasks6
-  test('Delete the last task created', async () => { // This test is to ensure that the last task created can be deleted successfully
-    const lastTaskCreated = page.getByRole('cell', { name: 'Test Task Playwright' });
+  test('Delete the last task created', { tag: ['@crud', '@delete', '@critical', '@cleanup'] }, async () => {
+    // Annotations for test metadata
+    test.info().annotations.push(
+      { type: 'test-id', description: 'tasks6' },
+      { type: 'feature', description: 'Task Management - Task Deletion' },
+      { type: 'severity', description: 'critical' },
+      { type: 'owner', description: 'Team 24' },
+      { type: 'test-type', description: 'delete-operation' }
+    );
+
+    // This test is to ensure that the last task created can be deleted successfully
+    await page.waitForLoadState('networkidle');
+    const lastTaskCreated = page.getByRole('cell', { name: 'Test Task Playwright New' });
     await expect(lastTaskCreated).toBeVisible();
 
     const deleteButtonLastTask = page.getByRole('cell', { name: 'Done' }).getByRole('button').nth(1);
